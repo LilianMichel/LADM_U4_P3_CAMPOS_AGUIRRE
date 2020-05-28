@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "233327262489",
+    "firebase_url": "https://ladm-lmca.firebaseio.com",
+    "project_id": "ladm-lmca",
+    "storage_bucket": "ladm-lmca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233327262489:android:90b0dc873e1b1dd46aa388",
+        "android_client_info": {
+          "package_name": "mx.edu.ittepic.ladm_u4_p3_campos_aguirre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "233327262489-4oj9c7hi51rnupfqe8jsabpiln57me3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzKvakaAcYyGkaIi-Eqw949DxqT3iNsSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233327262489-4oj9c7hi51rnupfqe8jsabpiln57me3b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
