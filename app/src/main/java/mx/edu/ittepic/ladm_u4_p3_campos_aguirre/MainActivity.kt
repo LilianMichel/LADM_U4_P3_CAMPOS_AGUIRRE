@@ -55,55 +55,48 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error, no existe conexion", Toast.LENGTH_LONG).show()
                     return@addSnapshotListener
                 }
-                mensajeTelefono = ""
-                numeroTelefono = ""
                 for (document in querySnapshot!!) {
                     mensajeTelefono = document.getString("formato").toString()
                     numeroTelefono = document.getString("telefono").toString() //Telefono a quien le envias el formato
-                }
-                var cambio = mensajeTelefono
-                if (cambio != "") {
-                    realizarConsulta()
-                } else {
-                    limpiarCampos()
+                    var cambio = mensajeTelefono
+                    if (cambio != "") {
+                        realizarConsulta()
+                    } else {
+                        limpiarCampos()
+                    }
                 }
             }
     }
      fun realizarConsulta() {
          var mensajeT = mensajeTelefono
-         var mensaje = ""
          var array = mensajeT.split(" ")
-
+            var mensajeR=""
+         var numero = numeroTelefono
          if (array[0] == "Contraseña" && array.size == 2) {
              baseRemota.collection("usuario").whereEqualTo("email", array[1])
                  .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                      if (firebaseFirestoreException != null) {
-                         var mensajeR = "EMAIL INCORRECTO. POR FAVOR VUELVA A MANDAR MENSAJE.¿SI?:("
-                         envioSMS(mensajeR)
                          return@addSnapshotListener
                      }
                      for (document in querySnapshot!!) {
-                         var mensajeF =
-                             document.getString("nombre") +"\ntu contraseña del correo: "+
-                         document.getString("email") + "\nes: "+
-                         document.getString("password")
-                         envioSMS(mensajeF)
+                         mensajeR ="${document.getString("nombre")!!} \ntu contraseña del correo: ${document.getString("email")!!} \n es: ${document.getString("password")!!}"
+                         if(mensajeR!=""){
+                             envioSMS(mensajeR)
+                         }
                      }
                  }
-         }else{
-             var incorrecto = "FORMATO INCORRECTO. VERIFIQUE QUE SEA (Contraseña email)"
-             envioSMS(incorrecto)
-         }
 
+         }else{
+             mensajeR = "FORMATO INCORRECTO. VERIFIQUE QUE SEA (Contraseña email)"
+             envioSMS(mensajeR)
+             limpiarCampos()
+         }
      }
      fun envioSMS(m:String){
          var numero = numeroTelefono
         SmsManager.getDefault().sendTextMessage(numero, null, m, null, null)
         Toast.makeText(this,"SE ENVIO EL SMS", Toast.LENGTH_LONG)
             .show()
-         baseRemota.collection("mensaje").document("u8qW2mza7MALhkboSgnG")
-             .update(
-                 "telefono","", "formato", "")
     }
     fun limpiarCampos(){
         baseRemota.collection("mensaje").document("u8qW2mza7MALhkboSgnG")
